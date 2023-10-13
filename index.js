@@ -19,3 +19,7 @@ app.use((err, req, res, next) => {
     res.status(500).send('Uh oh, looks like something broke!');
 });
 
+app.listen(8080, () => {
+    console.log('myFlix is listening on port 8080.');
+});
+
