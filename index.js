@@ -8,3 +8,7 @@ app.get('/', (req, res) => {
     res.send('Welcome to myFlix! It\'s like IMDB, but worse!');
 });
 
+app.get('/movies', (req, res) => {
+    res.json(topMovies);
+});
+
