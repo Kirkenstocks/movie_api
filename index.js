@@ -14,3 +14,8 @@ app.get('/movies', (req, res) => {
 
 app.use(express.static('public'));
 
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Uh oh, looks like something broke!');
+});
+
