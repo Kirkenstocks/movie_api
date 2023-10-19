@@ -8,6 +8,18 @@ const app = express();
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
+let users = [
+    {
+        id: 1,
+        name: 'Bob',
+        favoriteMovies: []
+    },
+    {
+        id: 2,
+        name: 'Kim',
+        favoriteMovies: ['Spaceballs']
+    }
+];
 
 let movies = [
     {
