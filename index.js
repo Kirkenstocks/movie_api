@@ -83,6 +83,12 @@ let movies = [
         genre: 'comedy'
     }
 ];
+
+//Return a list of all movies
+app.get('/movies', (req, res) => {
+    res.status(200).json(movies);
+})
+
     }
 ];// app.get('/', (req, res) => {
 //     res.send('Welcome to myFlix! It\'s like IMDB, but worse!');
