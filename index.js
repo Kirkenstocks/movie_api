@@ -138,6 +138,21 @@ app.post('/users', (req, res) => {
     }
 });
 
+// Allow users to update their username
+app.put('/users/:id', (req, res) => {
+    const { id } = req.params;
+    const updatedUser = req.body;
+
+    let user = users.find(user => user.id == id);
+
+    if (user) {
+        user.name = updatedUser.name;
+        res.status(200).json(user);
+    } else {
+        res.status(400).send('No such user');
+    }
+});
+
 //     res.send('Welcome to myFlix! It\'s like IMDB, but worse!');
 // });
 
