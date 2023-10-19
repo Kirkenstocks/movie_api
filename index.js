@@ -167,6 +167,20 @@ app.post('/users/:id/:movieTitle', (req, res) => {
     }
 });
 
+// Allow users to remove a movie from their list of favorites
+app.delete('/users/:id/:movieTitle', (req, res) => {
+    const { id, movieTitle } = req.params;
+
+    let user = users.find(user => user.id == id);
+
+    if (user && user.favoriteMovies.includes(movieTitle)) {
+        user.favoriteMovies = user.favoriteMovies.filter(title => title !== movieTitle);
+        res.status(200).send(`${movieTitle} has been removed from user ${id}'s list of favorite movies.`);
+    } else {
+        res.status(400).send(`${movieTitle} could not be removed from user ${id}'s list of favorite movies.`);
+    }
+});
+
 //     res.send('Welcome to myFlix! It\'s like IMDB, but worse!');
 // });
 
