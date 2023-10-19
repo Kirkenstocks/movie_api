@@ -111,7 +111,20 @@ app.get('/movies/genre/:genreName', (req, res) => {
     } else {
         res.status(400).send('No such genre');
     }
-];// app.get('/', (req, res) => {
+});
+
+//Return data about a director by name
+app.get('/movies/directors/:directorName', (req, res) => {
+    const { directorName } = req.params;
+    const director = movies.find(movie => movie.director === directorName).director;
+
+    if (director) {
+        res.status(200).json(director);
+    } else {
+        res.status(400).send('No such director');
+    }
+});
+
 //     res.send('Welcome to myFlix! It\'s like IMDB, but worse!');
 // });
 
