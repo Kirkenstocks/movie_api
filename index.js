@@ -100,6 +100,16 @@ app.get('/movies/:title', (req, res) => {
         res.status(400).send('No such movie');
     }
 });
+
+//Return data about a genre by name/title
+app.get('/movies/genre/:genreName', (req, res) => {
+    const { genreName } = req.params;
+    const genre = movies.find(movie => movie.genre === genreName).genre;
+
+    if (genre) {
+        res.status(200).json(genre);
+    } else {
+        res.status(400).send('No such genre');
     }
 ];// app.get('/', (req, res) => {
 //     res.send('Welcome to myFlix! It\'s like IMDB, but worse!');
