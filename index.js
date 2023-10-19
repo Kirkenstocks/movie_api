@@ -8,24 +8,6 @@ const app = express();
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-    res.send('Welcome to myFlix! It\'s like IMDB, but worse!');
-});
-
-app.get('/movies', (req, res) => {
-    res.json(topMovies);
-});
-
-app.use(express.static('public'));
-
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Uh oh, looks like something broke!');
-});
-
-app.listen(8080, () => {
-    console.log('myFlix is listening on port 8080.');
-});
 
 let topMovies = [
     {
@@ -78,4 +60,20 @@ let topMovies = [
         year: 1987,
         director: 'Mel Brooks'
     }
-];
+];// app.get('/', (req, res) => {
+//     res.send('Welcome to myFlix! It\'s like IMDB, but worse!');
+// });
+
+// app.get('/movies', (req, res) => {
+//     res.json(topMovies);
+// });
+
+// app.use(express.static('public'));
+
+// app.use((err, req, res, next) => {
+//     console.error(err.stack);
+//     res.status(500).send('Uh oh, looks like something broke!');
+// });
+
+
+// Array used for ex 2.4
