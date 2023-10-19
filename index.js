@@ -181,6 +181,13 @@ app.delete('/users/:id/:movieTitle', (req, res) => {
     }
 });
 
+// Server port setup
+app.listen(8080, () => {
+    console.log('myFlix is listening on port 8080.');
+});
+
+// Previously used code
+// app.get('/', (req, res) => {
 //     res.send('Welcome to myFlix! It\'s like IMDB, but worse!');
 // });
 
