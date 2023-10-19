@@ -153,6 +153,20 @@ app.put('/users/:id', (req, res) => {
     }
 });
 
+// Allow users to add a movie to their list of favorites
+app.post('/users/:id/:movieTitle', (req, res) => {
+    const { id, movieTitle } = req.params;
+
+    let user = users.find(user => user.id == id);
+
+    if (user) {
+        user.favoriteMovies.push(movieTitle);
+        res.status(200).send(`${movieTitle} has been added to user ${id}'s list of favorite movies.`);
+    } else {
+        res.status(400).send('User not found');
+    }
+});
+
 //     res.send('Welcome to myFlix! It\'s like IMDB, but worse!');
 // });
 
