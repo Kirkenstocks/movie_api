@@ -76,7 +76,7 @@
                 <td>None</td>
                 <td>
                     {
-                        "name": "User_name",
+                        "username": "User_name",
                         "favoriteMovies": [<br>
                         "Star Wars: A New Hope",<br>
                         "Star Wars: The Empire Strikes Back",<br>
@@ -86,7 +86,7 @@
                 </td>
                 <td>
                     {
-                        "name": "User_name",
+                        "username": "User_name",
                         "favoriteMovies": [<br>
                         "Star Wars: A New Hope",<br>
                         "Star Wars: The Empire Strikes Back",<br>
@@ -103,20 +103,20 @@
                 <td>User ID</td>
                 <td>
                     {
-                        "name": "new_username"
+                        "username": "new_username"
                     }
                 </td>
                 <td>
                     {
                         "id": "user_id",<br>
-                        "name": "new_username",<br>
+                        "username": "new_username",<br>
                         "favoriteMovies": []
                     }
                 </td>
             </tr>
             <tr>
                 <td>Allow users to add a movie to their list of favorites</td>
-                <td>users/id/movieTitle</td>
+                <td>users/id/favoriteMovies</td>
                 <td>POST</td>
                 <td>User ID,<br>
                 title of movie</td>
@@ -125,7 +125,7 @@
             </tr>
             <tr>
                 <td>Allow users to remove a movie from their list of favorites</td>
-                <td>users/id/movieTitle</td>
+                <td>users/id/favoriteMovies</td>
                 <td>DELETE</td>
                 <td>User ID,<br>
                 title of movie</td>
