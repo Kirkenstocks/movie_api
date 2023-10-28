@@ -32,11 +32,16 @@ app.get('/movies', async (req, res) => {
         });
 });
 
-    if (movie) {
-        res.status(200).json(movie);
-    } else {
-        res.status(400).send('No such movie');
-    }
+//Return a list of all users
+app.get('/users', async (req, res) => {
+    await Users.find()
+        .then((users) => {
+            res.status(200).json(users);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
 });
 
 //Return data about a genre by name/title
