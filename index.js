@@ -15,6 +15,10 @@ const app = express();
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
+//Welcome message
+app.get('/', (req, res) => {
+    res.send('Welcome to myFlix!');
+});
 
 //Return a list of all movies
 app.get('/movies', (req, res) => {
