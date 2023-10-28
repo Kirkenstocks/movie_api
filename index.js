@@ -48,6 +48,17 @@ app.get('/users', async (req, res) => {
 app.get('/movies/genre/:genreName', (req, res) => {
     const { genreName } = req.params;
     const genre = movies.find(movie => movie.genre === genreName).genre;
+//Return data for a movie by title
+app.get('/movies/:title', async (req, res) => {
+    await Movies.findOne({Title: req.params.title})
+        .then ((movie) => {
+            res.json(movie);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
+});
 
     if (genre) {
         res.status(200).json(genre);
