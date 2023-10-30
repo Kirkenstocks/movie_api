@@ -69,15 +69,15 @@ app.get('/movies/genre/:genreName', async (req, res) => {
 });
 
 //Return data about a director by name
-app.get('/movies/directors/:directorName', (req, res) => {
-    const { directorName } = req.params;
-    const director = movies.find(movie => movie.director === directorName).director;
-
-    if (director) {
-        res.status(200).json(director);
-    } else {
-        res.status(400).send('No such director');
-    }
+app.get('/movies/director/:directorName', async (req, res) => {
+    await Movies.findOne({'Director.Name': req.params.directorName})
+        .then((movie) => {
+            res.status(200).json(movie.Director);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
 });
 
 //Register new users
