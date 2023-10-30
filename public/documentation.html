@@ -10,7 +10,7 @@
     <h1>Description</h1>
     <p>
         This web application provides users with access to information about different movies, directors, and genres. 
-        Users can sign up, update their personal information, and create a list of their favorite movies.
+        Users can search for movies, directors, genres, and can create a list of their favorite movies.
     </p>
 
     <h3>Documentation by URL Endpoint</h3>
@@ -41,11 +41,22 @@
                 <td>Title of movie</td>
                 <td>None</td>
                 <td>
-                    {
-                        title: "Star Wars: A New Hope",<br>
-                        year: 1977,<br>
-                        director: George Lucas,<br>
-                        genre: science-fiction
+                    {<br>
+                        "Genre": {<br>
+                            "Name": "Action",<br>
+                            "Description": "Action film is a film genre in which the protagonist is thrust into a series of events that typically involve violence and physical feats. The genre tends to feature a mostly resourceful hero struggling against incredible odds, which include life-threatening situations, an indestructible villain, or a pursuit which usually concludes in victory for the hero."<br>
+                        },<br>
+                        "Director": {<br>
+                            "Name": "George Lucas",<br>
+                            "Bio": "George Walton Lucas Jr. is an American filmmaker and philanthropist from Modesto, California. Lucas is best known for creating the Star Wars and Indiana Jones franchises and founding Lucasfilm, LucasArts, Industrial Light & Magic, and THX.",<br>
+                            "Birth": "1944"<br>
+                        },<br>
+                        "_id": "6536b65f9e120e8a1849575f",<br>
+                        "Title": "Star Wars Episode IV: A New Hope",<br>
+                        "Description": "Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee and two droids to save the galaxy from the Empire's world-destroying battle station, while also attempting to rescue Princess Leia from the mysterious Darth Vader.",<br>
+                        "ImagePath": "anewhope.png",<br>
+                        "Featured": true,<br>
+                        "ReleaseYear": "1977"<br>
                     }
                 </td>
             </tr>
@@ -56,89 +67,122 @@
                 <td>Genre name</td>
                 <td>None</td>
                 <td>
-                    {genre name}
+                    {<br>
+                        "Name": "Action",<br>
+                        "Description": "Action film is a film genre in which the protagonist is thrust into a series of events that typically involve violence and physical feats. The genre tends to feature a mostly resourceful hero struggling against incredible odds, which include life-threatening situations, an indestructible villain, or a pursuit which usually concludes in victory for the hero."<br>
+                    }
                 </td>
             </tr>
             <tr>
                 <td>Return data about a director by name</td>
-                <td>/movies/directors/directorName</td>
+                <td>/movies/director/directorName</td>
                 <td>GET</td>
                 <td>Director name</td>
                 <td>None</td>
                 <td>
-                    {director name}
+                    {<br>
+                        "Name": "George Lucas",<br>
+                        "Bio": "George Walton Lucas Jr. is an American filmmaker and philanthropist from Modesto, California. Lucas is best known for creating the Star Wars and Indiana Jones franchises and founding Lucasfilm, LucasArts, Industrial Light & Magic, and THX.",<br>
+                        "Birth": "1944"<br>
+                    }
                 </td>
             </tr>
             <tr>
-                <td>Register a new user (favorite movies can also be added)</td>
+                <td>Register a new user</td>
                 <td>/users</td>
                 <td>POST</td>
                 <td>None</td>
                 <td>
-                    {
-                        "username": "User_name",
-                        "favoriteMovies": [<br>
-                        "Star Wars: A New Hope",<br>
-                        "Star Wars: The Empire Strikes Back",<br>
-                        "Star Wars: Return of the Jedi"<br>
-                        ]
+                    {<br>
+                        "Username": "test1",<br>
+                        "Password": "test1",<br>
+                        "Email": "test1@yahoo.com",<br>
+                        "Birthday": "1990-01-01"<br>
                     }
                 </td>
                 <td>
                     {
-                        "username": "User_name",
-                        "favoriteMovies": [<br>
-                        "Star Wars: A New Hope",<br>
-                        "Star Wars: The Empire Strikes Back",<br>
-                        "Star Wars: Return of the Jedi",<br>
-                        ]
-                        "id": "assigned_id"
+                        "Username": "test1",<br>
+                        "Password": "test1",<br>
+                        "Email": "test1@yahoo.com",<br>
+                        "Birthday": "1990-01-01T00:00:00.000Z",<br>
+                        "FavoriteMovies": [],<br>
+                        "_id": "653c464c5eeae17a706cd9eb"<br>
                     }
                 </td>
             </tr>
             <tr>
-                <td>Allow users to update their username</td>
-                <td>/users/id</td>
+                <td>Allow users to update their data</td>
+                <td>/users/Username</td>
                 <td>PUT</td>
-                <td>User ID</td>
+                <td>Username</td>
                 <td>
-                    {
-                        "username": "new_username"
+                    {<br>
+                        "Username": "Bobby"<br>
                     }
                 </td>
                 <td>
-                    {
-                        "id": "user_id",<br>
-                        "username": "new_username",<br>
-                        "favoriteMovies": []
+                    {<br>
+                        "_id": "65398fb99e120e8a1849576e",<br>
+                        "Username": "Bobby",<br>
+                        "Password": "BurgerMan84",<br>
+                        "Email": "bobsburgers@yahoo.com",<br>
+                        "Birthday": "1975-04-27T00:00:00.000Z",<br>
+                        "FavoriteMovies": [<br>
+                            "65397b1d9e120e8a18495765"<br>
+                        ]<br>
                     }
                 </td>
             </tr>
             <tr>
                 <td>Allow users to add a movie to their list of favorites</td>
-                <td>users/id/favoriteMovies</td>
+                <td>users/Username/movies/MovieID</td>
                 <td>POST</td>
-                <td>User ID,<br>
-                title of movie</td>
+                <td>Username,<br>
+                movie ID</td>
                 <td>None</td>
-                <td>"movieTitle has been added to user {id}'s list of favorite movies."</td>
+                <td>
+                    {<br>
+                        "_id": "653986fd9e120e8a18495769",<br>
+                        "Username": "HarryPotter",<br>
+                        "Password": "BoyWhoLived1980",<br>
+                        "Email": "nimbus2000rider@rocketmail.com",<br>
+                        "Birthday": "1980-07-31T00:00:00.000Z",<br>
+                        "FavoriteMovies": [<br>
+                            "6536b65f9e120e8a1849575f",<br>
+                            "653981219e120e8a18495768"<br>
+                        ]<br>
+                }
+                </td>
             </tr>
             <tr>
                 <td>Allow users to remove a movie from their list of favorites</td>
-                <td>users/id/favoriteMovies</td>
+                <td>users/Username/movies/MovieID</td>
                 <td>DELETE</td>
                 <td>User ID,<br>
-                title of movie</td>
+                movie ID</td>
                 <td>None</td>
-                <td>"movieTitle has been removed from user {id}'s list of favorite movies."</td>
+                <td>
+                    {<br>
+                        "_id": "6539896e9e120e8a1849576d",<br>
+                        "Username": "Thrawn",<br>
+                        "Password": "ArtTells0700",<br>
+                        "Email": "grandadmiral13@empire.gov",<br>
+                        "Birthday": "1970-01-01T00:00:00.000Z",<br>
+                        "FavoriteMovies": [<br>
+                            "653972399e120e8a18495760",<br>
+                            "65397a239e120e8a18495764"<br>
+                        ]<br>
+                    }
+                </td>
             </tr>
             <tr>
                 <td>Allow users to deregister</td>
-                <td>users/id</td>
+                <td>users/Username</td>
                 <td>DELETE</td>
                 <td>User ID</td>
                 <td>None</td>
-                <td>"User {id} has been deleted."</td>
+                <td>"test1 was deleted"</td>
             </tr>
             </tbody>
     </table>
