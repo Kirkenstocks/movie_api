@@ -44,10 +44,6 @@ app.get('/users', async (req, res) => {
         });
 });
 
-//Return data about a genre by name/title
-app.get('/movies/genre/:genreName', (req, res) => {
-    const { genreName } = req.params;
-    const genre = movies.find(movie => movie.genre === genreName).genre;
 //Return data for a movie by title
 app.get('/movies/:title', async (req, res) => {
     await Movies.findOne({Title: req.params.title})
@@ -60,11 +56,16 @@ app.get('/movies/:title', async (req, res) => {
         });
 });
 
-    if (genre) {
-        res.status(200).json(genre);
-    } else {
-        res.status(400).send('No such genre');
-    }
+// Return data about a genre by genre name
+app.get('/movies/genre/:genreName', async (req, res) => {
+    await Movies.findOne({'Genre.Name': req.params.genreName})
+        .then((movie) => {
+            res.status(200).json(movie.Genre);
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
 });
 
 //Return data about a director by name
