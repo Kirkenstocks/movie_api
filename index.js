@@ -130,11 +130,16 @@ app.put('/users/:Username', async (req, res) => {
 app.post('/users/:Username/movies/:MovieID', async (req, res) => {
     await Users.findOneAndUpdate ({Username: req.params.Username}, {
         $push: {FavoriteMovies: req.params.MovieID}
+        $addToSet: {FavoriteMovies: req.params.MovieID}
     },
     {new: true})
-        .then ((updatedUser) => {
+    .then((updatedUser) => {
+        if (!updatedUser) {
+            res.status(404).send('User not found');
+        } else {
             res.json(updatedUser);
-        })
+        } 
+    })   
         .catch((err) => {
             console.error(err);
             res.status(500).send('Error: ' + err);
