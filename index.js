@@ -129,7 +129,6 @@ app.put('/users/:Username', async (req, res) => {
 // Allow users to add a movie to their list of favorites
 app.post('/users/:Username/movies/:MovieID', async (req, res) => {
     await Users.findOneAndUpdate ({Username: req.params.Username}, {
-        $push: {FavoriteMovies: req.params.MovieID}
         $addToSet: {FavoriteMovies: req.params.MovieID}
     },
     {new: true})
@@ -147,20 +146,23 @@ app.post('/users/:Username/movies/:MovieID', async (req, res) => {
 });
 
 // Allow users to remove a movie from their list of favorites
-app.delete('/users/:id/:movieTitle', (req, res) => {
-    const { id, movieTitle } = req.params;
-
-    let user = users.find(user => user.id == id);
-
-    if (user && user.favoriteMovies.includes(movieTitle)) {
-        user.favoriteMovies = user.favoriteMovies.filter(title => title !== movieTitle);
-        res.status(200).send(`${movieTitle} has been removed from user ${id}'s list of favorite movies.`);
-    } else {
-        res.status(400).send(`${movieTitle} could not be removed from user ${id}'s list of favorite movies.`);
-    }
+app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
+    await Users.findOneAndUpdate ({Username: req.params.Username}, {
+        $pull: {FavoriteMovies: req.params.MovieID}
+    },
+    {new: true})
+    .then((updatedUser) => {
+        if (!updatedUser) {
+            res.status(404).send('User not found');
+        } else {
+            res.json(updatedUser);
+        } 
+    })   
+        .catch((err) => {
+            console.error(err);
+            res.status(500).send('Error: ' + err);
+        });
 });
-//     let user = users.find(user => user.id == id);
-
 
 // Delete a user by username
 app.delete('/users/:Username', async (req, res) => {
