@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 });
 
 //Return a list of all movies
-app.get('/movies', async (req, res) => {
+app.get('/movies', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Movies.find()
         .then((movies) => {
             res.status(200).json(movies);
@@ -40,7 +40,7 @@ app.get('/movies', async (req, res) => {
 });
 
 //Return a list of all users
-app.get('/users', async (req, res) => {
+app.get('/users', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Users.find()
         .then((users) => {
             res.status(200).json(users);
@@ -52,7 +52,7 @@ app.get('/users', async (req, res) => {
 });
 
 //Return data for a movie by title
-app.get('/movies/:title', async (req, res) => {
+app.get('/movies/:title', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Movies.findOne({Title: req.params.title})
         .then ((movie) => {
             res.json(movie);
@@ -64,7 +64,7 @@ app.get('/movies/:title', async (req, res) => {
 });
 
 // Return data about a genre by genre name
-app.get('/movies/genre/:genreName', async (req, res) => {
+app.get('/movies/genre/:genreName', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Movies.findOne({'Genre.Name': req.params.genreName})
         .then((movie) => {
             res.status(200).json(movie.Genre);
@@ -76,7 +76,7 @@ app.get('/movies/genre/:genreName', async (req, res) => {
 });
 
 //Return data about a director by name
-app.get('/movies/director/:directorName', async (req, res) => {
+app.get('/movies/director/:directorName', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Movies.findOne({'Director.Name': req.params.directorName})
         .then((movie) => {
             res.status(200).json(movie.Director);
@@ -114,14 +114,18 @@ app.post('/users', async (req, res) => {
 });
 
 // Allow users to update their data by username
-app.put('/users/:Username', async (req, res) => {
-    await Users.findOneAndUpdate({Username: req.params.Username}, {$set:
-    {
-        Username: req.body.Username,
-        Password: req.body.Password,
-        Email: req.body.Email,
-        Birthday: req.body.Birthday
+app.put('/users/:Username', passport.authenticate('jwt', {session: false}), async (req, res) => {
+    if(req.user.Username !== req.params.Username) {
+        return res.status(400).send('Permission denied');
     }
+    await Users.findOneAndUpdate({Username: req.params.Username}, {
+        $set:
+        {
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+        }
 },
 {new: true})
     .then ((updatedUser) => {
@@ -134,7 +138,7 @@ app.put('/users/:Username', async (req, res) => {
 });
 
 // Allow users to add a movie to their list of favorites
-app.post('/users/:Username/movies/:MovieID', async (req, res) => {
+app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Users.findOneAndUpdate ({Username: req.params.Username}, {
         $addToSet: {FavoriteMovies: req.params.MovieID}
     },
@@ -153,7 +157,7 @@ app.post('/users/:Username/movies/:MovieID', async (req, res) => {
 });
 
 // Allow users to remove a movie from their list of favorites
-app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
+app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Users.findOneAndUpdate ({Username: req.params.Username}, {
         $pull: {FavoriteMovies: req.params.MovieID}
     },
@@ -172,7 +176,7 @@ app.delete('/users/:Username/movies/:MovieID', async (req, res) => {
 });
 
 // Delete a user by username
-app.delete('/users/:Username', async (req, res) => {
+app.delete('/users/:Username', passport.authenticate('jwt', {session: false}), async (req, res) => {
     await Users.findOneAndRemove({Username: req.params.Username})
         .then((user) => {
             if (!user) {
