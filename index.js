@@ -13,7 +13,11 @@ mongoose.connect('mongodb://127.0.0.1:27017/myFlixDB', {useNewUrlParser: true, u
 const app = express();
 
 app.use(morgan('common'));
+
+//which line should I keep out of the below 2 lines?
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 //Welcome message
 app.get('/', (req, res) => {
