@@ -18,6 +18,9 @@ app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport.js');
 
 //Welcome message
 app.get('/', (req, res) => {
