@@ -144,15 +144,25 @@ app.post('/users', [
 });
 
 // Allow users to update their data by username
-app.put('/users/:Username', passport.authenticate('jwt', {session: false}), async (req, res) => {
-    if(req.user.Username !== req.params.Username) {
-        return res.status(400).send('Permission denied');
+app.put('/users/:Username', [
+    check ('Username', 'Username is required').not().isEmpty(),
+    check ('Username', 'Username must only contain alphanumeric characters.').isAlphanumeric(),
+    check ('Password', 'Password is required').not().isEmpty(),
+    check ('Email', 'Email does not appear to be valid').isEmail()
+],  
+    passport.authenticate('jwt', {session: false}), async (req, res) => {
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({errors: errors.array()});
     }
+
+    let hashedPassword = Users.hashPassword(req.body.Password);
+
     await Users.findOneAndUpdate({Username: req.params.Username}, {
         $set:
         {
             Username: req.body.Username,
-            Password: req.body.Password,
+            Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday
         }
