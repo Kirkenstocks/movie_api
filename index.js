@@ -106,7 +106,19 @@ app.get('/movies/director/:directorName', passport.authenticate('jwt', {session:
 });
 
 //Register new users
-app.post('/users', async (req, res) => {
+app.post('/users', [
+    check ('Username', 'Username is required').not().isEmpty(),
+    check ('Username', 'Username must only contain alphanumeric characters.').isAlphanumeric(),
+    check ('Password', 'Password is required').not().isEmpty(),
+    check ('Email', 'Email does not appear to be valid').isEmail()
+], async (req, res) => {
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({errors: errors.array()});
+    }
+
+    let hashedPassword = Users.hashPassword(req.body.Password);
+
     await Users.findOne({Username: req.body.Username})
         .then((user) => {
             if (user) {
@@ -114,7 +126,7 @@ app.post('/users', async (req, res) => {
             } else {
                 Users.create({
                     Username: req.body.Username,
-                    Password: req.body.Password,
+                    Password: hashedPassword,
                     Email: req.body.Email,
                     Birthday: req.body.Birthday
                 })
