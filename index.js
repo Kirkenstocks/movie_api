@@ -232,6 +232,7 @@ app.delete('/users/:Username', passport.authenticate('jwt', {session: false}), a
 });
 
 // Server port setup
-app.listen(8080, () => {
-    console.log('myFlix is listening on port 8080.');
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0', () => {
+    console.log('myFlix is listening on Port ' + port);
 });
