@@ -9,8 +9,6 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect('mongodb://127.0.0.1:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true});
-
 const app = express();
 
 app.use(morgan('common'));
@@ -19,9 +17,28 @@ app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//Import and configure cors
+const cors = require('cors');
+app.use(cors());
+
+let allowedOrigins = '*';
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin) return callback (null, true);
+        if (allowedOrigins.indexOf(origin) === -1) {
+            let message = 'The CORS policy for this application doesn\'t allow access from origin ' + origin;
+            return callback (new Error(message), false);
+        }
+        return callback (null, true);
+    }
+}));
+
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport.js');
+
+mongoose.connect('mongodb://127.0.0.1:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
 //Welcome message
 app.get('/', (req, res) => {
