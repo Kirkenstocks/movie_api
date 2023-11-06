@@ -38,7 +38,11 @@ let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport.js');
 
-mongoose.connect('mongodb://127.0.0.1:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true});
+// local database
+// mongoose.connect('mongodb://127.0.0.1:27017/myFlixDB', {useNewUrlParser: true, useUnifiedTopology: true});
+
+// remote database
+mongoose.connect('process.env.CONNECTION_URI', {useNewUrlParser: true, useUnifiedTopology: true});
 
 //Welcome message
 app.get('/', (req, res) => {
