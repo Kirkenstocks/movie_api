@@ -50,7 +50,8 @@ app.get('/', (req, res) => {
 });
 
 //Return a list of all movies
-app.get('/movies', passport.authenticate('jwt', {session: false}), async (req, res) => {
+//authentication removed for exercise 3.4
+app.get('/movies', async (req, res) => {
     await Movies.find()
         .then((movies) => {
             res.status(200).json(movies);
