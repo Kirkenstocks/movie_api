@@ -113,7 +113,7 @@ app.get('/movies/director/:directorName', passport.authenticate('jwt', {session:
 app.post('/users', [
     check ('Username', 'Username is required').not().isEmpty(),
     check ('Username', 'Username must only contain alphanumeric characters.').isAlphanumeric(),
-    check ('Password', 'Password is required').not().isEmpty(),
+    check ('Password', 'Password must be at least 8 characters').isLength({ min: 5 }),
     check ('Email', 'Email does not appear to be valid').isEmail()
 ], async (req, res) => {
     let errors = validationResult(req);
