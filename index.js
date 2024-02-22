@@ -74,16 +74,16 @@ app.get('/users', passport.authenticate('jwt', {session: false}), async (req, re
 });
 
 //Return data on one user
-app.get('users/:Username', passport.authenticate('jwt', {session: false}), async (req, res) => {
-    await Users.findOne({Username: req.params.Username})
+app.get('/users/:Username', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    await Users.findOne({ Username: req.params.Username })
         .then((user) => {
             res.status(200).json(user);
         })
         .catch((err) => {
             console.error(err);
-            res.status(500).send('Error ' + err);
+            res.status(500).send('Error: ' + err);
         });
-})
+});
 
 //Return data for a movie by title
 app.get('/movies/:title', passport.authenticate('jwt', {session: false}), async (req, res) => {
