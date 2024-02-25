@@ -13,7 +13,6 @@ const app = express();
 
 app.use(morgan('common'));
 
-//which line should I keep out of the below 2 lines?
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -21,7 +20,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const cors = require('cors');
 app.use(cors());
 
-let allowedOrigins = ['https://myflix-sw.netlify.app', 'http://localhost:1234', 'http://localhost:4200'];
+let allowedOrigins = [
+    'https://myflix-sw.netlify.app', 'https://kirkenstocks.github.io/myFlix-Angular-client', 'http://localhost:1234', 'http://localhost:4200'
+];
 
 app.use(cors({
     origin: (origin, callback) => {
