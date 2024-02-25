@@ -21,7 +21,7 @@ const cors = require('cors');
 app.use(cors());
 
 let allowedOrigins = [
-    'https://myflix-sw.netlify.app', 'https://kirkenstocks.github.io/myFlix-Angular-client', 'http://localhost:1234', 'http://localhost:4200'
+    'https://myflix-sw.netlify.app', 'https://kirkenstocks.github.io', 'http://localhost:1234', 'http://localhost:4200'
 ];
 
 app.use(cors({
