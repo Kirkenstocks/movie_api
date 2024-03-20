@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentation</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
 </head>
 <body>
 
@@ -34,6 +35,7 @@
                 <td>None</td>
                 <td>Returns an array of all movies</td>
             </tr>
+            <br>
             <tr>
                 <td>Return data about a single movie by title</td>
                 <td>/movies/movieTitle</td>
@@ -92,7 +94,7 @@
                 <td>/users</td>
                 <td>POST</td>
                 <td>None</td>
-                <td>
+                <td class="json-request">
                     {<br>
                         "Username": "test1",<br>
                         "Password": "test1",<br>
@@ -116,7 +118,7 @@
                 <td>/users/Username</td>
                 <td>PUT</td>
                 <td>Username</td>
-                <td>
+                <td class="json-request">
                     {<br>
                         "Username": "Bobby"<br>
                     }

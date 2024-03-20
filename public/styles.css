@@ -1,0 +1,22 @@
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
+table, thead, td {
+  border: 1px solid #000;
+  border-collapse: collapse;
+}
+
+td {
+  text-align: center;
+  padding: 10px;
+}
+
+td:last-child {
+  text-align: left;
+}
+
+.json-request {
+  text-align: left;
+}
