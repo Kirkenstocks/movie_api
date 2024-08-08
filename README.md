@@ -2,6 +2,7 @@
 
 ## Description
 This API provides users with access to a movie database that contains information about a small selection of movies, as well as their genre and director. Users can create an account and keep a list of their favorite movies found in the database.
+**Note: On first use the app may take up to 30 seconds to spin up. Please try again if you receieve an error when first signing up/logging in.**
 
 ## Endpoints
 
